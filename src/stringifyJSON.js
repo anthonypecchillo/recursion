@@ -4,32 +4,76 @@
 // but you don't so you're going to write it from scratch:
 
 
-  // As Resolved with Study Partner (11/27/16):
-  // ------------------------------------------
-  
-  var stringifyJSON = function(obj) {
-    if (typeof obj === 'boolean' || typeof obj === 'number') {
-      return obj.toString();
-    } else if (obj === null) {
-      return 'null';
-    } else if (typeof obj === 'string') {
-      var addQuotes = ['"', obj, '"'];
-      return addQuotes.join('');
-    } else if (Array.isArray(obj)) {
-      var stringifiedArray = obj.map(function(element) {
-        return stringifyJSON(element);  
-      }).join(',');
-      return '[' + stringifiedArray + ']';  
-    } else if (typeof obj === 'object') {
-      var stringifiedObj = [];
-        for (var key in obj) {
-          if (!(obj[key] === undefined || typeof obj[key] === 'function')) {
-            stringifiedObj.push(stringifyJSON(key) + ":" + stringifyJSON(obj[key]));
-          }
-        }  
-      return "{" + stringifiedObj.join(',') + "}";
+// As Resolved (again) while wathcing solution video (11/29/16):
+// -------------------------------------------------------------
+
+// Notes:
+// ------
+// - Turns any object into a string representation.
+// 
+// - Allows you to package a memory object into a uniformly formatted string
+//   value, send it across the internet, and then convert it back to a similar,
+//   related, or equivalent object.
+
+var stringifyJSON = function(obj) {
+  if (Array.isArray(obj)) {
+    var results = [];
+    for (var i = 0; i < obj.length; i++) {
+      results.push(stringifyJSON(obj[i]));
     }
-  };
+    return '[' + results.join(',') + ']';
+  }
+  // BELOW: First condition verifies that 'obj' actually has a real value. 
+  // (Not null).
+  if (obj && typeof obj === 'object') {
+    var results = [];
+    for (var key in obj) {
+      if (typeof obj[key] === 'function' || obj[key] === undefined) {
+        // 'continue' ignores the rest of this iteration and continues to
+        // the next run of the loop.
+        continue;
+      }
+      results.push(stringifyJSON(key) + ':' + stringifyJSON(obj[key]));
+    }
+    return '{' + results.join(',') + '}'; 
+
+  }
+  if (typeof obj === 'string') {
+    return '"' + obj + '"';
+  }
+  return '' + obj;
+};
+
+
+
+// As Resolved with Study Partner (11/27/16):
+// ------------------------------------------
+
+// var stringifyJSON = function(obj) {
+//   if (typeof obj === 'boolean' || typeof obj === 'number') {
+//     return obj.toString();
+//   } else if (obj === null) {
+//     return 'null';
+//   } else if (typeof obj === 'string') {
+//     var addQuotes = ['"', obj, '"'];
+//     return addQuotes.join('');
+//   } else if (Array.isArray(obj)) {
+//     var stringifiedArray = obj.map(function(element) {
+//       return stringifyJSON(element);  
+//     }).join(',');
+//     return '[' + stringifiedArray + ']';  
+//   } else if (typeof obj === 'object') {
+//     var stringifiedObj = [];
+//       for (var key in obj) {
+//         if (!(obj[key] === undefined || typeof obj[key] === 'function')) {
+//           stringifiedObj.push(stringifyJSON(key) + ":" + stringifyJSON(obj[key]));
+//         }
+//       }  
+//     return "{" + stringifiedObj.join(',') + "}";
+//   }
+// };
+
+
 
 // Original Solution from Fulcrum (eeewwww!!!):
 // --------------------------------------------
