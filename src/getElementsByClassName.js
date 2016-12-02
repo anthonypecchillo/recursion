@@ -6,7 +6,8 @@
 // But instead we're going to implement it from scratch:
 
 
-
+// My solution:
+// ------------
 var getElementsByClassName = function (className) {
 
   var elementsWithClass = [];
@@ -27,43 +28,8 @@ var getElementsByClassName = function (className) {
 };
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// From Fuclrum Solution Video:
+// ----------------------------
 
 // var getElementsByClassName = function(className, node){
   
